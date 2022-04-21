@@ -20,7 +20,7 @@
       <a>Ray Angle: </a>
       <input type="range" min="-2" max="2" value="0" step="0.001" class="slider" id="rayAngle">
       <a>Deviation: </a>
-      <input type="range" min="0" max="1" value="0" step="0.001" class="slider" id="deviation">
+      <input type="range" min="0" max="1" value="1" step="0.001" class="slider" id="deviation">
       <a>Correction: </a>
       <input type="range" min="0" max="1" value="1" step="0.001" class="slider" id="correction">
       <a>F/stop: </a>
@@ -625,16 +625,15 @@ struct RayPayload {
 Ray tiltShift(vec2 screen, vec2 random) {
   vec3 PPrime = vec3(screen*0.5*sensorSize+shift, -s);
 
-  // TODO: Ensure random numbers come pre-squared.
   float theta = 6.28318531 * random.x;
-  float r = 0.5 * aperture * sqrt(random.y);
+  float r = 0.5 * aperture * sqrt(random.y) * deviation;
   vec3 O = (cos(theta) * basis_u + sin(theta) * basis_v) * r;
 
   vec3 P = PPrime * f / (f - dot(PPrime, tilt));
 
   Ray ray;
-  ray.origin = O;
-  ray.direction = normalize(P - O);
+  ray.origin = O*correction + vec3(0.)*(1.-correction);
+  ray.direction = correction*normalize(P - O) + normalize(PPrime - O)*(1.-correction);
   ray.tMin = 0.;
   ray.tMax = INFINITY;
   return ray;

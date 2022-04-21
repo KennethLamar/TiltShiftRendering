@@ -710,16 +710,15 @@ struct RayPayload {
 Ray tiltShift(vec2 screen, vec2 random) {
   vec3 PPrime = vec3(screen*0.5*sensorSize+shift, -s);
 
-  // TODO: Ensure random numbers come pre-squared.
   float theta = 6.28318531 * random.x;
-  float r = 0.5 * aperture * sqrt(random.y);
+  float r = 0.5 * aperture * sqrt(random.y) * deviation;
   vec3 O = (cos(theta) * basis_u + sin(theta) * basis_v) * r;
 
   vec3 P = PPrime * f / (f - dot(PPrime, tilt));
 
   Ray ray;
-  ray.origin = O;
-  ray.direction = normalize(P - O);
+  ray.origin = O*correction + vec3(0.)*(1.-correction);
+  ray.direction = correction*normalize(P - O) + normalize(PPrime - O)*(1.-correction);
   ray.tMin = 0.;
   ray.tMax = INFINITY;
   return ray;
@@ -1134,6 +1133,9 @@ void main() {
       { shift: [0,-1],
         note: "It's also useful for certain \"impossible shots\", where a subject is framed in a mirror but the camera is nowhere in sight, even though it looks like the camera should be directly in front of the mirror. In reality, the camera is to the side, with the sensor shifted for framing."},
       { shift: [0,0],
+        deviation: 1,
+        correction: 1,
+        n: 8,
         note: "Tilt is far more interesting to me. It tilts the lens to adjust the angle of the focal plane."},
       { tilt: [0,1,-1],
         note: "Since the focal plane is where the image is in focus, we can define essentially an arbitrary plane of perfect focus."},
