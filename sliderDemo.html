@@ -1,0 +1,960 @@
+<!doctype html>
+<html>
+  <head>
+  </head>
+  <body>
+    <script src="js/seedrandom.js">// For deterministic Math.seedrandom()</script>
+    <script src="js/twgl-full.min.js"></script>
+    <script src="js/d3.v7.min.js" charset="utf-8"></script>
+    <div class="slidecontainer">
+      <a>Ray Count: </a>
+      <input type="range" min="1" max="100" value="5" step="1" class="slider" id="rayCount">
+      <a>Ray Grouping: </a>
+      <input type="range" min="0" max="1" value="0" step="0.001" class="slider" id="rayGrouping">
+      <br>
+      <a>Ray Sensor Distance: </a>
+      <input type="range" min="0" max="1" value="1" step="0.001" class="slider" id="raySensorDistance">
+      <a>Ray Distance: </a>
+      <input type="range" min="0" max="2" value="1" step="0.001" class="slider" id="rayDistance">
+      <br>
+      <a>Ray Angle: </a>
+      <input type="range" min="-2" max="2" value="0" step="0.001" class="slider" id="rayAngle">
+      <a>Deviation: </a>
+      <input type="range" min="0" max="1" value="0" step="0.001" class="slider" id="deviation">
+      <a>Correction: </a>
+      <input type="range" min="0" max="1" value="1" step="0.001" class="slider" id="correction">
+      <a>F/stop: </a>
+      <input type="range" min="0.01" max="10" value="5" step="0.001" class="slider" id="n">
+      <br>
+      <div id="constraintChooser">
+        <a>Dependent Param: </a>
+        <input type="radio" id="sRadio" name="constraintChooser" value="s" checked>
+        <label for="sRadio">Sensor Distance</label>
+        <input type="radio" id="fRadio" name="constraintChooser" value="f">
+        <label for="fRadio">Focal Length</label>
+        <input type="radio" id="pRadio" name="constraintChooser" value="p">
+        <label for="pRadio">Focal Plane Distance</label>
+      </div>
+      <a>Sensor Distance: </a>
+      <input type="range" min="1.01" max="5" value="2" step="0.001" class="slider" id="s">
+      <a>Focal Length: </a>
+      <input type="range" min="0.01" max="2" value="1" step="0.001" class="slider" id="f">
+      <a>Focal Plane Distance: </a>
+      <input type="range" min="1.01" max="5" value="3" step="0.001" class="slider" id="p">
+      <br>
+      <a>Shift X: </a>
+      <input type="range" min="-10" max="10" value="0" step="0.001" class="slider" id="shiftX">
+      <a>Shift Y: </a>
+      <input type="range" min="-10" max="10" value="0" step="0.001" class="slider" id="shiftY">
+      <a>Tilt X: </a>
+      <input type="range" min="-1" max="1" value="0" step="0.001" class="slider" id="tiltX">
+      <a>Tilt Y: </a>
+      <input type="range" min="-1" max="1" value="0" step="0.001" class="slider" id="tiltY">
+      <br>
+      <a>Sensor Size: </a>
+      <input type="range" min="0.1" max="5" value="1.8" step="0.001" class="slider" id="sensorSize">
+      <a>Element Scale: </a>
+      <input type="range" min="0" max="1" value="1" step="0.001" class="slider" id="elementScale">
+      <a>Diagram Fade: </a>
+      <input type="range" min="0" max="255" value="255" step="1" class="slider" id="diagramFade">
+      <a>Gauss Fade: </a>
+      <input type="range" min="0" max="255" value="255" step="1" class="slider" id="gaussFade">
+    </div>
+    <div id="gaussEqDiv" style="display: none;">
+      <svg id="gaussEq" xmlns="http://www.w3.org/2000/svg" width="98.264px" height="40.416px" viewBox="0 -1342 5429 2233" xmlns:xlink="http://www.w3.org/1999/xlink" style=""><defs><path id="MJX-17-TEX-N-31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path><path id="MJX-17-TEX-I-66" d="M118 -162Q120 -162 124 -164T135 -167T147 -168Q160 -168 171 -155T187 -126Q197 -99 221 27T267 267T289 382V385H242Q195 385 192 387Q188 390 188 397L195 425Q197 430 203 430T250 431Q298 431 298 432Q298 434 307 482T319 540Q356 705 465 705Q502 703 526 683T550 630Q550 594 529 578T487 561Q443 561 443 603Q443 622 454 636T478 657L487 662Q471 668 457 668Q445 668 434 658T419 630Q412 601 403 552T387 469T380 433Q380 431 435 431Q480 431 487 430T498 424Q499 420 496 407T491 391Q489 386 482 386T428 385H372L349 263Q301 15 282 -47Q255 -132 212 -173Q175 -205 139 -205Q107 -205 81 -186T55 -132Q55 -95 76 -78T118 -61Q162 -61 162 -103Q162 -122 151 -136T127 -157L118 -162Z"></path><path id="MJX-17-TEX-N-3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path><path id="MJX-17-TEX-I-70" d="M23 287Q24 290 25 295T30 317T40 348T55 381T75 411T101 433T134 442Q209 442 230 378L240 387Q302 442 358 442Q423 442 460 395T497 281Q497 173 421 82T249 -10Q227 -10 210 -4Q199 1 187 11T168 28L161 36Q160 35 139 -51T118 -138Q118 -144 126 -145T163 -148H188Q194 -155 194 -157T191 -175Q188 -187 185 -190T172 -194Q170 -194 161 -194T127 -193T65 -192Q-5 -192 -24 -194H-32Q-39 -187 -39 -183Q-37 -156 -26 -148H-6Q28 -147 33 -136Q36 -130 94 103T155 350Q156 355 156 364Q156 405 131 405Q109 405 94 377T71 316T59 280Q57 278 43 278H29Q23 284 23 287ZM178 102Q200 26 252 26Q282 26 310 49T356 107Q374 141 392 215T411 325V331Q411 405 350 405Q339 405 328 402T306 393T286 380T269 365T254 350T243 336T235 326L232 322Q232 321 229 308T218 264T204 212Q178 106 178 102Z"></path><path id="MJX-17-TEX-N-2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path><path id="MJX-17-TEX-I-73" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="math"><g data-mml-node="mfrac"><g data-mml-node="mn" transform="translate(245, 676)"><use xlink:href="#MJX-17-TEX-N-31"></use></g><g data-mml-node="mi" transform="translate(220, -686)"><use xlink:href="#MJX-17-TEX-I-66"></use></g><rect width="750" height="60" x="120" y="220"></rect></g><g data-mml-node="mo" transform="translate(1267.8, 0)"><use xlink:href="#MJX-17-TEX-N-3D"></use></g><g data-mml-node="mfrac" transform="translate(2323.6, 0)"><g data-mml-node="mn" transform="translate(221.5, 676)"><use xlink:href="#MJX-17-TEX-N-31"></use></g><g data-mml-node="mi" transform="translate(220, -686)"><use xlink:href="#MJX-17-TEX-I-70"></use></g><rect width="703" height="60" x="120" y="220"></rect></g><g data-mml-node="mo" transform="translate(3488.8, 0)"><use xlink:href="#MJX-17-TEX-N-2B"></use></g><g data-mml-node="mfrac" transform="translate(4489, 0)"><g data-mml-node="mn" transform="translate(220, 676)"><use xlink:href="#MJX-17-TEX-N-31"></use></g><g data-mml-node="mi" transform="translate(235.5, -686)"><use xlink:href="#MJX-17-TEX-I-73"></use></g><rect width="700" height="60" x="120" y="220"></rect></g></g></g></svg>
+    </div>
+    <svg id="illus" class="svg" width="1000" height="950"></svg>
+    <canvas id="render" width="1000" height="950"></canvas>
+    <script id="helpers">
+      function padLeadingZeros(num, size) {
+          var s = num+"";
+          while (s.length < size) s = "0" + s;
+          return s;
+      }
+      function HSVtoRGB(h, s, v) {
+        var r, g, b, i, f, p, q, t;
+        if (arguments.length === 1) {
+          s = h.s, v = h.v, h = h.h;
+        }
+        i = Math.floor(h * 6);
+        f = h * 6 - i;
+        p = v * (1 - s);
+        q = v * (1 - f * s);
+        t = v * (1 - (1 - f) * s);
+        switch (i % 6) {
+          case 0: r = v, g = t, b = p; break;
+          case 1: r = q, g = v, b = p; break;
+          case 2: r = p, g = v, b = t; break;
+          case 3: r = p, g = q, b = v; break;
+          case 4: r = t, g = p, b = v; break;
+          case 5: r = v, g = p, b = q; break;
+        }
+        var str = "#" +
+                  padLeadingZeros(Math.round(r * 255).toString(16),2) +
+                  padLeadingZeros(Math.round(g * 255).toString(16),2) +
+                  padLeadingZeros(Math.round(b * 255).toString(16),2);
+        return str;
+      }
+      // Curve helper function.
+      var curveFunc = d3.line()
+                        .curve(d3.curveCatmullRomClosed) // http://bl.ocks.org/d3indepth/b6d4845973089bc1012dec1674d3aff8
+                        .x(function(d) { return d[0] })
+                        .y(function(d) { return d[1] });
+      var lineFunc = d3.line()
+                       .x(function(d) { return d[0] })
+                       .y(function(d) { return d[1] });
+      // NOTE: Arrays are pass-by-reference, so this will affect the array passed in directly.
+      function shiftCoords(coords) {
+        for(var i = 0; i < coords.length; i++) {
+          coords[i][0] *= svgScale;
+          coords[i][1] *= svgScale;
+          coords[i][0] += centerW;
+          coords[i][1] += centerH;
+        }
+        return coords;
+      }
+    </script>
+    <script id="vars">
+      // Controllable variables. Set by sliders and animations.
+      var rayCount; // Used for illustration only. Defines the number of rays visualized in illustration.
+      var rayGrouping; // [0-1]. Used for illustration only. Groups lines together to show multiple angles from a single source.
+      var raySensorDistance; // Used for illustration only. Multiplier. Used to denote how far to the sensor to draw.
+      var rayDistance; // Used for illustration only. Multiplier. Used to denote how far past to focal plane to draw.
+      var rayAngle; // Used for illustration only. Shows how rays are affected by hitting at different angles. Could be used in render for adjusting angle on y axis too?
+      var deviation; // [0-1]. Used for the illustration only. Deviates the rays; potentially beyond the aperture; with those rays being culled at the lens. Could be used in render to permit some samples to deviate outside the aperture and return 0?
+      var correction; // [0-1]. Defines strength of the lens. Either permits blurriness as though the lens isn't there (0) or corrects to focal plane (1).
+      var s; // The distance between the sensor and lens. Dependent on f and p. Adjustable by real cameras.
+      var f; // Focal length of the lens. Used to adjust field of view.
+      var p; // Distance from lens to focal plane. Used to adjust what distance is in focus.
+      var n; // Aperture diameter for F-stop. Used to block more or less light (used to compute aperture), affecting sharpness. Used in illustration to adjust deviation.
+      var shift = [0,0]; // Defines the shifting of the images sensor relative to the lens origin.
+      var tilt = [0,0,-1]; // A vector defining the tilt angle of the lens.
+      var sensorSize; // Physical footprint of the lens. Used to determine the footprint where rays can shoot from the sensor.
+      var elementScale; // Animation-only sensor scale.
+      var diagramFade; // Animation-only diagram component transparency.
+      var gaussFade; // Animation-only Gauss component transparency.
+      // Standard variables that can simply be initialized from their slider values.
+      var variables = [
+        "rayCount",
+        "rayGrouping",
+        "raySensorDistance",
+        "rayDistance",
+        "rayAngle",
+        "deviation",
+        "correction",
+        "f",
+        "p",
+        "n",
+        "sensorSize",
+        "elementScale",
+      ];
+      // Internal variables. These are dependent on the other variables.
+      var aperture; // The aperture ultimately determines how sharp the image is. Computed from f and n.
+      var basis_u = [1,0,0]; // The basis vectors used to determine lens intersection when tilted. U is for horizontal movement.
+      var basis_v = [0,1,0]; // The basis vectors used to determine lens intersection when tilted. V is for vertical movement.
+
+      var svg; // A reference to our SVG canvas.
+      var svgScale = 100; // A scale factor to deal with small numbers on the graph.
+      // Center-point offsets for the canvas.
+      var centerW;
+      var centerH;
+      // Label positioning variables.
+      var labelOffset = 0.1;
+      var labelPos = 10;
+    </script>
+    <script id="sliderVars">
+      // Slider variables.
+      var rayCountSlider = document.getElementById("rayCount");
+      var rayGroupingSlider = document.getElementById("rayGrouping");
+      var raySensorDistanceSlider = document.getElementById("raySensorDistance");
+      var rayDistanceSlider = document.getElementById("rayDistance");
+      var rayAngleSlider = document.getElementById("rayAngle");
+      var deviationSlider = document.getElementById("deviation");
+      var correctionSlider = document.getElementById("correction");
+      var fSlider = document.getElementById("f");
+      var pSlider = document.getElementById("p");
+      var sSlider = document.getElementById("s");
+      var nSlider = document.getElementById("n");
+      var shiftXSlider = document.getElementById("shiftX");
+      var shiftYSlider = document.getElementById("shiftY");
+      var tiltXSlider = document.getElementById("tiltX");
+      var tiltYSlider = document.getElementById("tiltY");
+      var sensorSizeSlider = document.getElementById("sensorSize");
+      var elementScaleSlider = document.getElementById("elementScale");
+      var diagramFadeSlider = document.getElementById("diagramFade");
+      var gaussFadeSlider = document.getElementById("gaussFade");
+    </script>
+    <script id="illusFuncs">
+      // Generate a ray for illustration.
+      function getRay(percent, random) {
+        // Given a percent along the image sensor, find the associated point, P'.
+        // P' is the location where the ray touches the sensor.
+        // NOTE: We can make x and y negative to correct for a reversed image.
+        // NOTE: We eventually discard the x-axis in 2D space. It can have garbage for all we care.
+        var PPrime = [
+          shift[0],
+          (percent - 0.5) * sensorSize + shift[1],
+          -s
+        ];
+
+        // Uniformly sample from a circular disk for the Bokeh shape.
+        var theta = 6.28318531 * random[0];
+        // A random factor used to position the ray onto the lens.
+        // The shape of the lens means any random positioning will still converge rays on the focal plane.
+        // Multiply by the aperture to keep rays of being culled by hitting a wall.
+        var r = aperture * random[1] * deviation;
+
+        // The spot where the ray hits the lens.
+        // The origin hit point is somewhat randomized, along the basis vectors.
+        var O = twgl.v3.mulScalar(twgl.v3.add(twgl.v3.mulScalar(basis_u, Math.cos(theta)),
+                                              twgl.v3.mulScalar(basis_v, Math.sin(theta))),
+                                  r);
+        // Offset ray hit point for all rays.
+        // TODO: Not actually correct in tilted case.
+        O[1] = O[1] + rayAngle * aperture;
+        // Now solve P, the location where the ray touches the focal plane.
+        // NOTE: Paper authors got this wrong by adding. Simply negate instead to make it go the right direction.
+        var P = twgl.v3.mulScalar(PPrime, f/(f-twgl.v3.dot(PPrime,tilt)));
+
+        // Now figure out what to draw with this information.
+        // Find dirPrime, the direction the ray goes between the lens and the sensor.
+        var dirPrime = twgl.v3.normalize(twgl.v3.subtract(PPrime,O));
+        // Figure out where the ray hits the sensor plane.
+        var distPPrime = PPrime[2]/dirPrime[2];
+        // Draw a line from the lens to the focal plane.
+        // Find dirP, the direction the ray goes leaving the lens.
+        var dirP = twgl.v3.normalize(twgl.v3.subtract(P,O));
+        // Figure out where the ray hits the focal plane.
+        var distP = P[2]/dirP[2];
+        // Get the final location of each ray, (partially) scaled and corrected.
+        var length = (P[2]-O[2])/dirP[2];
+        var final = twgl.v3.add(O,
+                    twgl.v3.add(twgl.v3.mulScalar(dirP,correction*length*rayDistance),
+                                twgl.v3.mulScalar(dirPrime,-1*(1-correction)*length*rayDistance)));
+        // Assemble the final array of points.
+        var ray = [[PPrime[2]*raySensorDistance + O[2]*(1-raySensorDistance),
+                    PPrime[1]*raySensorDistance + O[1]*(1-raySensorDistance)],
+                   [O[2],O[1]],
+                   [final[2],final[1]]];
+        // Remove part of the ray if it can't get through the aperture.
+        if(O[1] > aperture || O[1] < -aperture) {
+          ray.pop();
+          // ray.shift();
+        }
+        // Return an array of points.
+        // These will be drawn as a line to illustrate a ray.
+        return ray;
+      }
+      function drawLine(points, color, thickness, id) {
+        return svg.append("path")
+                  .attr("id", id)
+                  // NOTE: SVGs draw with coordinates from the top-left. Use width and height attributes to compensate so 0,0 is the center.
+                  .attr('d', lineFunc(shiftCoords(points)))
+                  .attr('stroke', color)
+                  .style("stroke-width", function(d) { return thickness; })
+                  .attr('fill', 'none');
+      }
+      function draw() {
+        // Clear the canvas.
+        svg.selectAll('*').remove();
+        // Get the centerpoint of the SVG.
+        centerW = parseInt(svg.style("width"))/2;
+        centerH = parseInt(svg.style("height"))/2;
+
+        // Define the SVG arrowhead.
+        svg.append("svg:defs").append("svg:marker")
+           .attr("id", "triangle")
+           .attr("refX", 3)
+           .attr("refY", 3)
+           .attr("markerWidth", 30)
+           .attr("markerHeight", 30)
+           .attr("orient", "auto")
+           .attr('orient', 'auto-start-reverse')
+           .append("path")
+           .attr("d", "M 0 0 6 3 0 6 3 3")
+           .style("fill", "#000000"+gaussFade);
+           
+        // Draw center line.
+        drawLine([[-centerW,0],[centerW,0]], "#888888"+diagramFade, 4, "centerLine");
+        // Draw each ray.
+        for (var i = rayCount-1; i >= 0; i--) {
+          var percent;
+          if (rayCount > 1) {
+            percent = i/(rayCount - 1)*(1-rayGrouping);
+          }
+          else {
+            percent = 0.5;
+          }
+          //Math.seedrandom(i)
+          //var ray = getRay(percent, [Math.random(), Math.random()]);
+          // TODO: Using the pre-generated random numbers causes console errors. Figure out why.
+          var ray = getRay(percent, [rand[2*i], rand[2*i+1]]);
+          drawLine(ray, HSVtoRGB(i/(rayCount)*.75,1,1), Math.min(4,40/rayCount));
+        }
+
+        // TODO: Add axis labels?
+
+        // Gauss' Thin Lens Equation Visualizations.
+        // s
+        drawLine([[-s+.1,-sensorSize],[-.1,-sensorSize]], "#000000"+gaussFade, 2)
+                 .attr("marker-end", "url(#triangle)")
+                 .attr("marker-start", "url(#triangle)");
+        svg.append("text")
+           .attr("x", centerW-s/2*svgScale)
+           .attr("y", centerH+(-sensorSize-.1)*svgScale)
+           .style("fill", "#000000"+gaussFade)
+           .text("s="+s);
+        // p
+        drawLine([[.1,-sensorSize],[p-.1,-sensorSize]], "#000000"+gaussFade, 2)
+                 .attr("marker-end", "url(#triangle)")
+                 .attr("marker-start", "url(#triangle)");
+        svg.append("text")
+           .attr("x", centerW+p/2*svgScale)
+           .attr("y", centerH+(-sensorSize-.1)*svgScale)
+           .style("fill", "#000000"+gaussFade)
+           .text("p="+p);
+        // f/n
+        drawLine([[.3,-aperture],[.3,aperture]], "#000000"+gaussFade, 2)
+                 .attr("marker-end", "url(#triangle)")
+                 .attr("marker-start", "url(#triangle)");
+        svg.append("text")
+           .attr("x", centerW+.4*svgScale)
+           .attr("y", centerH)
+           .style("fill", "#000000"+gaussFade)
+           .text("f/n="+aperture);
+        // Gauss' Thin Lens Equation.
+        svg.append("text")
+        .attr("x", centerW-0.1*svgScale)
+        .attr("y", -1*svgScale+(1.3*svgScale)*Number("0x"+gaussFade)/255)
+        .style("fill", "#000000")
+        .style("text-anchor", "end")
+        .text("Gauss' Thin Lens Equation:");
+        var gaussEq = document.getElementById("gaussEq");
+        svg.append("g")
+           .attr("x", "98.264px")
+           .attr("y", "40.416px")
+           .style("fill", "#000000"+gaussFade)
+           .attr("transform", function(d) { return "translate(" + 
+             [centerW+0.1*svgScale, 
+             -1*svgScale+(1.2*svgScale)*Number("0x"+gaussFade)/255] + ")"; })
+           .html(gaussEq.outerHTML);
+
+        // These variables are used to track the lens rotation for use in visualization.
+        var lensCorner = twgl.v3.mulScalar(basis_u, aperture);
+        var lensSide = twgl.v3.normalize(twgl.v3.cross([1,0,0],lensCorner));
+        var lensCurvePos = twgl.v3.mulScalar(lensSide, correction*0.2*elementScale);
+
+        // Draw planes.
+        // Image plane.
+        drawLine([[-s,centerH],[-s,-centerH]], "#000000"+diagramFade, 2, "imagePlane")
+                 .style("stroke-dasharray", ("15, 5"));
+        // Lens plane.
+        // Get the scale needed to go to the end of the diagram after rotation.
+        var lensPlaneScale = centerH/lensCorner[1];
+        drawLine([[lensCorner[2]*lensPlaneScale,lensCorner[1]*lensPlaneScale],
+                  [-lensCorner[2]*lensPlaneScale,-lensCorner[1]*lensPlaneScale]], 
+                  "#000000"+diagramFade, 2, "lensPlane")
+                  .style("stroke-dasharray", ("15, 5"));
+        // Focal plane.
+        // Get an origin and direction for the plane.
+        // Start by getting two points from the sensor and determine where they would hit the focal plane.
+        var focalPlanePPrime = [shift[0],0.5 * sensorSize + shift[1],-s];
+        var focalPlaneP1 = twgl.v3.mulScalar(focalPlanePPrime, f/(f-twgl.v3.dot(focalPlanePPrime,tilt)));
+        focalPlanePPrime[1] = -focalPlanePPrime[1];
+        var focalPlaneP2 = twgl.v3.mulScalar(focalPlanePPrime, f/(f-twgl.v3.dot(focalPlanePPrime,tilt)));
+        // The difference between the points is the direction vector, which we can use to find points along the focal plane.
+        var focalPlaneDir = twgl.v3.normalize(twgl.v3.subtract(focalPlaneP1,focalPlaneP2));
+        if(focalPlaneDir[1] == 0) {
+          var focalPlaneStart = [0,-centerH,-s];
+          var focalPlaneEnd = [0,centerH,-s];
+        }
+        else {
+          // This is the length that must be traveled for the line to extend from the bottom to the top of the illustration.
+          var focalPlaneLen = (-centerH-focalPlaneP1[1])/focalPlaneDir[1];
+          // Now compute the specific points from one end of the line to the other.
+          var focalPlaneStart = twgl.v3.add(focalPlaneP1,twgl.v3.mulScalar(focalPlaneDir,focalPlaneLen));
+          var focalPlaneEnd = twgl.v3.subtract(focalPlaneP1,twgl.v3.mulScalar(focalPlaneDir,focalPlaneLen));
+        }
+        // Finally, draw the line.
+        drawLine([[focalPlaneStart[2],focalPlaneStart[1]],[focalPlaneEnd[2],focalPlaneEnd[1]]], "#000000"+diagramFade, 2, "focalPlane").style("stroke-dasharray", ("15, 5"));
+
+        // Draw sensor.
+        drawLine([[-s,sensorSize/2*elementScale+shift[1]],
+                  [-s,-sensorSize/2*elementScale+shift[1]]], "#8BC63E", 8, "sensor");
+        // Draw lens.
+        drawLine([[lensCorner[2],lensCorner[1]*elementScale],[-lensCorner[2],-lensCorner[1]*elementScale]], "#6A81BF", 4, "lensThin");
+        svg.append("path")
+           .attr("id", "lens")
+           .attr("d", curveFunc(shiftCoords([[-lensCorner[2],-lensCorner[1]*elementScale],
+                                             [lensCurvePos[2],lensCurvePos[1]],
+                                             [lensCorner[2],lensCorner[1]*elementScale],
+                                             [-lensCurvePos[2],-lensCurvePos[1]]])))
+           .attr("stroke", "#6A81BF")
+           .style("stroke-width", function(d) { return 4; })
+           .attr("fill","#6A81BF50");
+        // Draw labels.
+        svg.append("text")
+           .attr("x", centerW+(labelOffset-s)*svgScale)
+           .attr("y", 2*centerH-labelPos)
+           .style("fill", "#000000"+diagramFade)
+           .text("Image Plane");
+        svg.append("text")
+           .attr("x", lensCorner[2]*lensPlaneScale+centerW+labelOffset*svgScale)
+           .attr("y", 2*centerH-labelPos)
+           .style("fill", "#000000"+diagramFade)
+           .text("Lens Plane");
+        svg.append("text")
+           .attr("x", centerW+(labelOffset+p)*svgScale)
+           .attr("y", 2*centerH-labelPos)
+           .style("fill", "#000000"+diagramFade)
+           .text("Focal Plane");
+      }
+      var rand = [];
+      function init() {
+        // Get the initial parameter values from the sliders.
+        for (var v in variables) {
+          window[variables[v]] = Number(window[variables[v]+"Slider"].value);
+        }
+        shift[0] = Number(shiftXSlider.value);
+        shift[1] = Number(shiftYSlider.value);
+        tilt[0] = Number(tiltXSlider.value);
+        tilt[1] = Number(tiltYSlider.value);
+        diagramFade = padLeadingZeros(Number(diagramFadeSlider.value).toString(16),2);
+        gaussFade = padLeadingZeros(Number(gaussFadeSlider.value).toString(16),2);
+        // Lock the s parameter slider.
+        sSlider.disabled = true;
+        // Initialize the internal variables.
+        s = (p*f)/(p-f);
+        aperture = f/n;
+        basis_u = twgl.v3.normalize(twgl.v3.cross(tilt,
+                           Math.abs(tilt.x) > Math.abs(tilt.y)
+                           ? [0,1,0] : [1,0,0]));
+        basis_v = twgl.v3.cross(tilt, basis_u);
+        // Pre-generate our random numbers.
+        Math.seedrandom(0);
+        for( var i = 0; i < rayCountSlider.max * 2; i++) {
+          rand.push(Math.random());
+        }
+        // Get the SVG reference.
+        svg = d3.select("body").select("#illus");
+        // Draw the initial image.
+        draw();
+      }
+      // Run the init function on page load.
+      init();
+    </script>
+    <script id="sliderFuncs">
+      rayCountSlider.oninput = function() {
+        rayCount = Number(this.value);
+        draw();
+      }
+      rayGroupingSlider.oninput = function() {
+        rayGrouping = Number(this.value);
+        draw();
+      }
+      rayDistanceSlider.oninput = function() {
+        rayDistance = Number(this.value);
+        draw();
+      }
+      raySensorDistanceSlider.oninput = function() {
+        raySensorDistance = Number(this.value);
+        draw();
+      }
+      rayAngleSlider.oninput = function() {
+        rayAngle = Number(this.value);
+        draw();
+      }
+      deviationSlider.oninput = function() {
+        deviation = Number(this.value);
+        draw();
+      }
+      correctionSlider.oninput = function() {
+        correction = Number(this.value);
+        draw();
+      }
+      if (document.querySelector('input[name="constraintChooser"]')) {
+        document.querySelectorAll('input[name="constraintChooser"]').forEach((elem) => {
+          elem.addEventListener("change", function(event) {
+            // Unlock all Gauss' Thin Lens sliders.
+            sSlider.disabled = false;
+            fSlider.disabled = false;
+            pSlider.disabled = false;
+            // Lock the selected parameter.
+            window[event.target.value+"Slider"].disabled = true;
+          });
+        });
+      }
+      sSlider.oninput = function() {
+        s = Number(this.value);
+        // Update internal variables dependent on this.
+        if(pSlider.disabled) {
+          p = (s*f)/(s-f);
+        }
+        else { // fSlider.disabled
+          f = 1/(1/p+1/s);
+        }
+        draw();
+      }
+      fSlider.oninput = function() {
+        f = Number(this.value);
+        // Update internal variables dependent on this.
+        if(pSlider.disabled) {
+          p = (s*f)/(s-f);
+        }
+        else { // sSlider.disabled
+          s = (p*f)/(p-f);
+        }
+        aperture = f/n;
+        draw();
+      }
+      pSlider.oninput = function() {
+        p = Number(this.value);
+        // Update internal variables dependent on this.
+        if(fSlider.disabled) {
+          f = 1/(1/p+1/s);
+        }
+        else { // sSlider.disabled
+          s = (p*f)/(p-f);
+        }
+        draw();
+      }
+      nSlider.oninput = function() {
+        n = Number(this.value);
+        // Update internal variables dependent on this.
+        aperture = f/n;
+        draw();
+      }
+      shiftXSlider.oninput = function() {
+        shift[0] = Number(this.value);
+        draw();
+      }
+      shiftYSlider.oninput = function() {
+        shift[1] = Number(this.value);
+        draw();
+      }
+      tiltXSlider.oninput = function() {
+        tilt[0] = Number(this.value);
+        // Update internal variables dependent on this.
+        basis_u = twgl.v3.normalize(twgl.v3.cross(tilt,
+                           Math.abs(tilt.x) > Math.abs(tilt.y)
+                           ? [0,1,0] : [1,0,0]));
+        basis_v = twgl.v3.cross(tilt, basis_u);
+        draw();
+      }
+      tiltYSlider.oninput = function() {
+        tilt[1] = Number(this.value);
+        // Update internal variables dependent on this.
+        basis_u = twgl.v3.normalize(twgl.v3.cross(tilt,
+                           Math.abs(tilt.x) > Math.abs(tilt.y)
+                           ? [0,1,0] : [1,0,0]));
+        basis_v = twgl.v3.cross(tilt, basis_u);
+        draw();
+      }
+      sensorSizeSlider.oninput = function() {
+        sensorSize = Number(this.value);
+        draw();
+      }
+      elementScaleSlider.oninput = function() {
+        elementScale = Number(this.value);
+        draw();
+      }
+      diagramFadeSlider.oninput = function() {
+        diagramFade = padLeadingZeros(Number(this.value).toString(16),2);
+        draw();
+      }
+      gaussFadeSlider.oninput = function() {
+        gaussFade = padLeadingZeros(Number(this.value).toString(16),2);
+        draw();
+      }
+    </script>
+    <script id="renderShaders">
+      vs = `#version 300 es
+in vec4 position;
+
+void main() {
+  gl_Position = position;
+}
+      `;
+      fs = `#version 300 es
+precision mediump float;
+
+const float INFINITY = 10000000000000000000000000000000.;
+
+uniform vec2 iResolution;
+uniform float iTime;
+out vec4 FragColor;
+
+uniform float deviation;
+uniform float correction;
+uniform float s;
+uniform float f;
+uniform float p;
+uniform float n;
+uniform vec2 shift;
+uniform vec3 tilt;
+uniform float sensorSize;
+uniform float aperture;
+uniform vec3 basis_u;
+uniform vec3 basis_v;
+
+#define GRID 0 // 0 = diffuse grey grid, 1 = emissive spots
+const vec3 blue_sphere = vec3(0.75, 0.5, 0.25);
+const vec3 green_sphere = vec3(-0.5, -0.25, 0.75);
+const vec3 red_sphere = vec3(0.25, -0.75, -0.5);
+
+// Camera parameters. 
+// Change these to reposition the camera, move the points of focus, or change the lens and camera parameters.
+// Not all combinations are physically possible.
+const vec3 eye = vec3(0.0, 0.0, -2.75);
+
+// Derived constants from above settings.
+const vec3 gaze = normalize(-eye);
+const vec3 right = normalize(cross(gaze, vec3(0.0, 1.0, 0.0)));
+const vec3 up = cross(gaze, right);
+const float epsilon = 0.001;
+
+struct Ray {
+  vec3 origin;
+  vec3 direction;
+  float tMin, tMax;
+};
+struct RayPayload {
+  vec3 color;
+};
+
+Ray tiltShift(vec2 screen, vec2 random) {
+  vec3 PPrime = vec3(screen*0.5*sensorSize+shift, -s);
+
+  // TODO: Ensure random numbers come pre-squared.
+  float theta = 6.28318531 * random.x;
+  float r = 0.5 * aperture * sqrt(random.y);
+  vec3 O = (cos(theta) * basis_u + sin(theta) * basis_v) * r;
+
+  vec3 P = PPrime * f / (f - dot(PPrime, tilt));
+
+  Ray ray;
+  ray.origin = O;
+  ray.direction = normalize(P - O);
+  ray.tMin = 0.;
+  ray.tMax = INFINITY;
+  return ray;
+}
+
+// Ray/primitive intersection routines. Take the ray origin and
+// direction, and the primitive position as input. If the
+// t-value for the distance to the intersection is closer than
+// the existing t-value passed in, then updates the t-value, the
+// hit coordinates, and surface normal at the intersection.
+int plane(
+    vec3 origin,
+    vec3 direction,
+    vec3 orient,
+    float offset,
+    inout float t,
+    inout vec3 hit,
+    inout vec3 normal) {
+  float t_plane = (offset - dot(origin, orient)) / dot(direction, orient);
+  if (t_plane < epsilon || t < t_plane)
+      return 0;
+  t = t_plane;
+  hit = origin + direction * t;
+  normal = orient;
+  return 1;
+}
+int sphere(
+    vec3 origin,
+    vec3 direction,
+    vec3 center,
+    float radius,
+    inout float t,
+    inout vec3 hit,
+    inout vec3 normal) {
+  vec3 offset = origin - center;
+  float b = dot(offset, direction);
+  float c = dot(offset, offset) - radius * radius;
+  float discriminant = b * b - c;
+  if (discriminant <= 0.0)
+      return 0;
+  float t_sphere = -b - sqrt(discriminant);
+  if (t_sphere < epsilon || t < t_sphere)
+      return 0;
+  t = t_sphere;
+  hit = origin + direction * t;
+  normal = normalize(hit - center);
+  return 1;
+}
+int cylinder(
+    vec3 origin,
+    vec3 direction,
+    vec3 center,
+    vec3 orient,
+    float radius,
+    inout float t,
+    inout vec3 hit,
+    inout vec3 normal) {
+  vec3 approach = cross(direction, orient);
+  float distance = abs(dot(origin - center, normalize(approach)));
+  if (distance > radius)
+      return 0;
+  float t_center = dot(cross(orient, origin - center), approach) /
+      dot(approach, approach);
+  float t_half = sqrt(radius * radius - distance * distance) /
+      dot(direction, normalize(cross(orient, approach)));
+  float t_cylinder = t_center - t_half;
+  if (t_cylinder < epsilon || t < t_cylinder)
+      return 0;
+  t = t_cylinder;
+  hit = origin + direction * t;
+  normal = ((hit - center) - dot(hit - center, orient) * orient) / radius;
+  return 1;
+}
+
+// Shade a 2D position to compute either a grey grid pattern with
+// lines to use for diffuse shading or else a grey pattern with a
+// grid of small dots to use for emissive shading.
+float grid_diffuse(
+    vec2 position) {
+#if GRID == 0
+  vec2 cell = fract(position);
+  vec2 grid_1 = step(0.015, cell) - step(0.985, cell);
+  vec2 grid_2 = 1.0 - step(0.475, cell) + step(0.525, cell);
+  float blend = mod(floor(position.x) + floor(position.y), 2.0);
+  return mix(0.4, grid_1.x * grid_1.y * mix(grid_2.x * grid_2.y, 0.9, blend), 0.6);
+#else
+  return 0.0;
+#endif
+}
+float grid_emissive(vec2 position) {
+#if GRID == 1
+  vec2 cell = fract(position);
+  vec2 centered = cell - vec2(0.5);
+  return 20.0 * (1.0 - step(0.001, dot(centered, centered)));
+#else
+  return 0.0;
+#endif
+}
+
+// Random number generation. Map a 3D seed value to a group of
+// three pseudorandom each in [0,1]. (I.e., a uniformly
+// distributed sample in the unit 3D cube.)
+vec3 rng(vec3 seed) {
+  uvec3 v = uvec3(abs(seed) * 1048576.0);
+  v = v * 1664525u + 1013904223u;
+  v.x += v.y * v.z;
+  v.y += v.z * v.x;
+  v.z += v.x * v.y;
+  v ^= v >> 16u;
+  v.x += v.y*v.z;
+  v.y += v.z*v.x;
+  v.z += v.x*v.y;
+  return vec3(v) * (1.0 / float(0xffffffffu));
+}
+// Given a ray and a maximum distance t-value, intersect the ray
+// against the scene and get information out about what was hit
+// if anything. The position and shading values at the hit are
+// output. Returns 1 if the ray hit anything, or 0 if it missed.
+int trace(
+    vec3 origin,
+    vec3 direction,
+    float t,
+    out vec3 hit,
+    out vec3 normal,
+    out vec3 diffuse,
+    out vec3 specular,
+    out vec3 emissive) {
+  const vec3 x_axis = vec3(1.0, 0.0, 0.0);
+  const vec3 y_axis = vec3(0.0, 1.0, 0.0);
+  const vec3 z_axis = vec3(0.0, 0.0, 1.0);
+  float original_t = t;
+  if (plane(origin, direction, -z_axis, -1.0, t, hit, normal) > 0) {
+    diffuse = vec3(grid_diffuse(hit.xy * 4.0));
+    specular = vec3(0.0);
+    emissive = vec3(grid_emissive(hit.xy * 4.0));
+  }
+  if (plane(origin, direction,  x_axis, -1.0, t, hit, normal) +
+      plane(origin, direction, -x_axis, -1.0, t, hit, normal) > 0) {
+    diffuse = vec3(grid_diffuse(hit.yz * 4.0));
+    specular = vec3(0.0);
+    emissive = vec3(grid_emissive(hit.yz * 4.0));
+  }
+  if (plane(origin, direction,  y_axis, -1.0, t, hit, normal) +
+      plane(origin, direction, -y_axis, -1.0, t, hit, normal) > 0) {
+    diffuse = vec3(grid_diffuse(hit.xz * vec2(-4.0, 4.0)));
+    specular = vec3(0.0);
+    emissive = vec3(grid_emissive(hit.xz * vec2(-4.0, 4.0)));
+  }
+  if (sphere(origin, direction, red_sphere, 0.1, t, hit, normal) > 0) {
+    diffuse = vec3(1.0, 0.1, 0.1);
+    specular = vec3(0.9, 0.4, 0.4);
+    emissive = vec3(0.0);
+  }
+  if (cylinder(origin, direction, red_sphere, x_axis, 0.01, t, hit, normal) +
+      cylinder(origin, direction, red_sphere, y_axis, 0.01, t, hit, normal) +
+      cylinder(origin, direction, red_sphere, z_axis, 0.01, t, hit, normal) > 0) {
+    diffuse = vec3(1.0, 0.1, 0.1);
+    specular = vec3(0.0);
+    emissive = vec3(0.0);
+  }
+  if (sphere(origin, direction, green_sphere, 0.1, t, hit, normal) > 0) {
+    diffuse = vec3(0.1, 1.0, 0.1);
+    specular = vec3(0.4, 0.9, 0.4);
+    emissive = vec3(0.0);
+  }
+  if (cylinder(origin, direction, green_sphere, x_axis, 0.01, t, hit, normal) +
+      cylinder(origin, direction, green_sphere, y_axis, 0.01, t, hit, normal) +
+      cylinder(origin, direction, green_sphere, z_axis, 0.01, t, hit, normal) > 0) {
+    diffuse = vec3(0.1, 1.0, 0.1);
+    specular = vec3(0.0);
+    emissive = vec3(0.0);
+  }
+  if (sphere(origin, direction, blue_sphere, 0.1, t, hit, normal) > 0) {
+    diffuse = vec3(0.1, 0.1, 1.0);
+    specular = vec3(0.4, 0.4, 0.9);
+    emissive = vec3(0.0);
+  }
+  if (cylinder(origin, direction, blue_sphere, x_axis, 0.01, t, hit, normal) +
+      cylinder(origin, direction, blue_sphere, y_axis, 0.01, t, hit, normal) +
+      cylinder(origin, direction, blue_sphere, z_axis, 0.01, t, hit, normal) > 0) {
+    diffuse = vec3(0.1, 0.1, 1.0);
+    specular = vec3(0.0);
+    emissive = vec3(0.0);
+  }
+  return original_t == t ? 0 : 1;
+}
+// Path trace a ray against the scene and return an single sample
+// estimating the radiance arriving at the sensor back along the
+// ray. This orchestrates intersecting the ray against the
+// scene, shading the ray at the hit point for the surface
+// properties, next-event estimation for direct lighting from an
+// invisible area light on the ceiling, and following several
+// bounces of indirect rays.
+vec3 shade(
+    inout vec3 origin,
+    inout vec3 direction) {
+  vec3 shaded = vec3(0.0);
+  vec3 throughput = vec3(1.0);
+  for (int bounce = 0; bounce < 3; ++bounce) {
+    float t = 1.0e30;
+    vec3 hit = vec3(0.0);
+    vec3 normal = vec3(0.0);
+    vec3 diffuse = vec3(0.0);
+    vec3 specular = vec3(0.0);
+    vec3 emissive = vec3(0.0);
+    trace(origin, direction, t, hit, normal, diffuse, specular, emissive);
+
+    // Add in emissive contribution.
+    shaded += throughput * emissive;
+
+    // Add in direct lighting via next event estimation.
+    vec3 xi_1 = rng(hit);
+    vec3 light = vec3((xi_1.x - 0.5) * 0.1, 0.99, (xi_1.z - 0.5) * 0.1);
+    vec3 light_direction = light - hit;
+    if (dot(normal, light_direction) > 0.0)
+    {
+      float light_distance = length(light_direction);
+      light_direction /= light_distance;
+      vec3 shadow_hit = vec3(0.0);
+      vec3 shadow_normal = vec3(0.0);
+      vec3 shadow_diffuse = vec3(0.0);
+      vec3 shadow_specular = vec3(0.0);
+      vec3 shadow_emissive = vec3(0.0);
+      int intersected = trace(hit, light_direction, light_distance,
+                              shadow_hit, shadow_normal,
+                              shadow_diffuse, shadow_specular, shadow_emissive);
+      if (intersected == 0)
+      {
+          vec3 halfway = normalize(light_direction + normalize(origin - hit));
+          float lambert = max(0.0, dot(normal, light_direction));
+          float blinn_phong = 3.0 * pow(max(0.0, dot(halfway, normal)), 64.0);
+          shaded += throughput * (diffuse * lambert + specular * blinn_phong);
+      }
+    }
+
+    // Update for indirect lighting: adjust path throughput
+    // and choose new ray for next path segment.
+    float diffuse_weight = dot(diffuse, vec3(1.0));
+    float specular_weight = dot(specular, vec3(1.0));
+    if (xi_1.y * (diffuse_weight + specular_weight) <= diffuse_weight) {
+      vec3 xi_2 = rng(hit + vec3(239.0, 491.0, 128.0));
+      float phi = 6.28318531 * xi_2.x;
+      float cos_theta_sq = xi_2.y;
+      float sin_theta = sqrt(1.0 - cos_theta_sq);
+      float sgn = normal.z < 0.0 ? -1.0 : 1.0;
+      float a = -1.0 / (sgn + normal.z);
+      float b = normal.x * normal.y * a;
+      direction =
+          (vec3(b, sgn + normal.y * normal.y * a, -normal.y) * (cos(phi) * sin_theta) +
+            vec3(1.0 + sgn * normal.x * normal.x * a, sgn * b, -sgn * normal.x) * (sin(phi) * sin_theta) +
+            normal * sqrt(cos_theta_sq));
+      throughput *= diffuse;
+    }
+    else {
+      direction = reflect(direction, normal);
+      throughput *= specular;
+    }
+    origin = hit + direction * 0.001;
+  }
+  return shaded;
+}
+
+void mainImage(in vec2 fragCoord) {
+  const float batch = 32.0;
+  vec3 shaded = vec3(0.0);
+  for(float i = 0.; i < batch; i++) {
+    vec2 jittered = fragCoord + rng(vec3(fragCoord, iTime * i)).xy;
+    vec2 screen = (2.0 * jittered - iResolution.xy) / min(iResolution.x, iResolution.y);
+    vec2 random = rng(vec3(screen, iTime)).xy;
+    Ray ray = tiltShift(screen, random);
+    ray.origin = eye + ray.origin.x * right + ray.origin.y * up + ray.origin.z * gaze;
+    ray.direction = normalize(ray.direction.x * right + ray.direction.y * up + ray.direction.z * gaze);
+    shaded += shade(ray.origin, ray.direction);
+  }
+  FragColor = vec4(shaded / batch, 1.0);
+}
+
+void main() {
+  mainImage(gl_FragCoord.xy);
+}
+      `;
+    </script>
+    <script id="renderFuncs">
+      // Get the canvas reference.
+      canvas = document.getElementById("render");
+      const gl = canvas.getContext('webgl2');
+      const programInfo = twgl.createProgramInfo(gl, [vs, fs]);
+      const arrays = {
+        position: [-1, -1, 0, 1, -1, 0, -1, 1, 0, -1, 1, 0, 1, -1, 0, 1, 1, 0],
+      };
+      const bufferInfo = twgl.createBufferInfoFromArrays(gl, arrays);
+      function render(time) {
+        twgl.resizeCanvasToDisplaySize(gl.canvas);
+        gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+
+        const uniforms = {
+          iResolution: [gl.canvas.width, gl.canvas.height],
+          iTime: time * 0.001,
+          deviation: deviation,
+          correction: correction,
+          s: s,
+          f: f,
+          p: p,
+          n: n,
+          shift: shift,
+          tilt: tilt,
+          sensorSize: sensorSize,
+          aperture: aperture,
+          basis_u: basis_u,
+          basis_v: basis_v,
+        };
+        
+        gl.useProgram(programInfo.program);
+        twgl.setBuffersAndAttributes(gl, programInfo, bufferInfo);
+        twgl.setUniforms(programInfo, uniforms);
+        twgl.drawBufferInfo(gl, bufferInfo);
+        
+        requestAnimationFrame(render);
+      }
+      requestAnimationFrame(render);
+    </script>
+  </body>
+</html>
