@@ -7,3 +7,27 @@ This project implements a tilt-shift camera lens. It is based on [*Tilt-Shift Re
 ## [Interactive Demo](https://kennethlamar.github.io/TiltShiftRendering/sliderDemo.html)
 
 ### [Original Author Shadertoy Demo](https://www.shadertoy.com/view/tlcBzN)
+
+
+## Setup
+
+Some assets will not load in development without using a local test server. The following instructions will set up such a server as well as all of the development tasks needed to make edits to the reveal.js source code.
+
+1. Install [Node.js](https://nodejs.org/) (10.0.0 or later)
+
+1. Clone the reveal.js repository
+   ```shell
+   $ git clone https://github.com/hakimel/reveal.js.git
+   ```
+
+1. Move to the reveal.js folder and install dependencies
+   ```shell
+   $ cd reveal.js && npm install
+   ```
+
+1. Serve the presentation and monitor source files for changes
+   ```shell
+   $ npm start
+   ```
+
+1. Open <http://localhost:8000> to view your presentation
