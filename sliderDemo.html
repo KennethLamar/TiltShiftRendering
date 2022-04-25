@@ -1,70 +1,112 @@
 <!doctype html>
-<html>
+<html style="margin: 0; padding: 0;">
   <head>
   </head>
-  <body>
+  <body style="margin: 0; padding: 0;">
     <script src="js/seedrandom.js">// For deterministic Math.seedrandom()</script>
     <script src="js/twgl-full.min.js"></script>
     <script src="js/d3.v7.min.js" charset="utf-8"></script>
-    <div class="slidecontainer">
-      <a>Ray Count: </a>
-      <input type="range" min="1" max="100" value="5" step="1" class="slider" id="rayCount">
-      <a>Ray Grouping: </a>
-      <input type="range" min="0" max="1" value="0" step="0.001" class="slider" id="rayGrouping">
-      <br>
-      <a>Ray Sensor Distance: </a>
-      <input type="range" min="0" max="1" value="1" step="0.001" class="slider" id="raySensorDistance">
-      <a>Ray Distance: </a>
-      <input type="range" min="0" max="2" value="1" step="0.001" class="slider" id="rayDistance">
-      <br>
-      <a>Ray Angle: </a>
-      <input type="range" min="-2" max="2" value="0" step="0.001" class="slider" id="rayAngle">
-      <a>Deviation: </a>
-      <input type="range" min="0" max="1" value="1" step="0.001" class="slider" id="deviation">
-      <a>Correction: </a>
-      <input type="range" min="0" max="1" value="1" step="0.001" class="slider" id="correction">
-      <a>F/stop: </a>
-      <input type="range" min="0.01" max="10" value="5" step="0.001" class="slider" id="n">
-      <br>
-      <div id="constraintChooser">
-        <a>Dependent Param: </a>
-        <input type="radio" id="sRadio" name="constraintChooser" value="s" checked>
-        <label for="sRadio">Sensor Distance</label>
-        <input type="radio" id="fRadio" name="constraintChooser" value="f">
-        <label for="fRadio">Focal Length</label>
-        <input type="radio" id="pRadio" name="constraintChooser" value="p">
-        <label for="pRadio">Focal Plane Distance</label>
-      </div>
-      <a>Sensor Distance: </a>
-      <input type="range" min="1.01" max="5" value="2" step="0.001" class="slider" id="s">
-      <a>Focal Length: </a>
-      <input type="range" min="0.01" max="2" value="1" step="0.001" class="slider" id="f">
-      <a>Focal Plane Distance: </a>
-      <input type="range" min="1.01" max="5" value="3" step="0.001" class="slider" id="p">
-      <br>
-      <a>Shift X: </a>
-      <input type="range" min="-10" max="10" value="0" step="0.001" class="slider" id="shiftX">
-      <a>Shift Y: </a>
-      <input type="range" min="-10" max="10" value="0" step="0.001" class="slider" id="shiftY">
-      <a>Tilt X: </a>
-      <input type="range" min="-1" max="1" value="0" step="0.001" class="slider" id="tiltX">
-      <a>Tilt Y: </a>
-      <input type="range" min="-1" max="1" value="0" step="0.001" class="slider" id="tiltY">
-      <br>
-      <a>Sensor Size: </a>
-      <input type="range" min="0.1" max="5" value="1.8" step="0.001" class="slider" id="sensorSize">
-      <a>Element Scale: </a>
-      <input type="range" min="0" max="1" value="1" step="0.001" class="slider" id="elementScale">
-      <a>Diagram Fade: </a>
-      <input type="range" min="0" max="255" value="255" step="1" class="slider" id="diagramFade">
-      <a>Gauss Fade: </a>
-      <input type="range" min="0" max="255" value="255" step="1" class="slider" id="gaussFade">
-    </div>
     <div id="gaussEqDiv" style="display: none;">
-      <svg id="gaussEq" xmlns="http://www.w3.org/2000/svg" width="98.264px" height="40.416px" viewBox="0 -1342 5429 2233" xmlns:xlink="http://www.w3.org/1999/xlink" style=""><defs><path id="MJX-17-TEX-N-31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path><path id="MJX-17-TEX-I-66" d="M118 -162Q120 -162 124 -164T135 -167T147 -168Q160 -168 171 -155T187 -126Q197 -99 221 27T267 267T289 382V385H242Q195 385 192 387Q188 390 188 397L195 425Q197 430 203 430T250 431Q298 431 298 432Q298 434 307 482T319 540Q356 705 465 705Q502 703 526 683T550 630Q550 594 529 578T487 561Q443 561 443 603Q443 622 454 636T478 657L487 662Q471 668 457 668Q445 668 434 658T419 630Q412 601 403 552T387 469T380 433Q380 431 435 431Q480 431 487 430T498 424Q499 420 496 407T491 391Q489 386 482 386T428 385H372L349 263Q301 15 282 -47Q255 -132 212 -173Q175 -205 139 -205Q107 -205 81 -186T55 -132Q55 -95 76 -78T118 -61Q162 -61 162 -103Q162 -122 151 -136T127 -157L118 -162Z"></path><path id="MJX-17-TEX-N-3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path><path id="MJX-17-TEX-I-70" d="M23 287Q24 290 25 295T30 317T40 348T55 381T75 411T101 433T134 442Q209 442 230 378L240 387Q302 442 358 442Q423 442 460 395T497 281Q497 173 421 82T249 -10Q227 -10 210 -4Q199 1 187 11T168 28L161 36Q160 35 139 -51T118 -138Q118 -144 126 -145T163 -148H188Q194 -155 194 -157T191 -175Q188 -187 185 -190T172 -194Q170 -194 161 -194T127 -193T65 -192Q-5 -192 -24 -194H-32Q-39 -187 -39 -183Q-37 -156 -26 -148H-6Q28 -147 33 -136Q36 -130 94 103T155 350Q156 355 156 364Q156 405 131 405Q109 405 94 377T71 316T59 280Q57 278 43 278H29Q23 284 23 287ZM178 102Q200 26 252 26Q282 26 310 49T356 107Q374 141 392 215T411 325V331Q411 405 350 405Q339 405 328 402T306 393T286 380T269 365T254 350T243 336T235 326L232 322Q232 321 229 308T218 264T204 212Q178 106 178 102Z"></path><path id="MJX-17-TEX-N-2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path><path id="MJX-17-TEX-I-73" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="math"><g data-mml-node="mfrac"><g data-mml-node="mn" transform="translate(245, 676)"><use xlink:href="#MJX-17-TEX-N-31"></use></g><g data-mml-node="mi" transform="translate(220, -686)"><use xlink:href="#MJX-17-TEX-I-66"></use></g><rect width="750" height="60" x="120" y="220"></rect></g><g data-mml-node="mo" transform="translate(1267.8, 0)"><use xlink:href="#MJX-17-TEX-N-3D"></use></g><g data-mml-node="mfrac" transform="translate(2323.6, 0)"><g data-mml-node="mn" transform="translate(221.5, 676)"><use xlink:href="#MJX-17-TEX-N-31"></use></g><g data-mml-node="mi" transform="translate(220, -686)"><use xlink:href="#MJX-17-TEX-I-70"></use></g><rect width="703" height="60" x="120" y="220"></rect></g><g data-mml-node="mo" transform="translate(3488.8, 0)"><use xlink:href="#MJX-17-TEX-N-2B"></use></g><g data-mml-node="mfrac" transform="translate(4489, 0)"><g data-mml-node="mn" transform="translate(220, 676)"><use xlink:href="#MJX-17-TEX-N-31"></use></g><g data-mml-node="mi" transform="translate(235.5, -686)"><use xlink:href="#MJX-17-TEX-I-73"></use></g><rect width="700" height="60" x="120" y="220"></rect></g></g></g></svg>
+      <svg id="gaussEq" xmlns="http://www.w3.org/2000/svg" width="98.264px" height="40.416px" viewBox="0 -1342 5429 2233" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path id="MJX-17-TEX-N-31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path><path id="MJX-17-TEX-I-66" d="M118 -162Q120 -162 124 -164T135 -167T147 -168Q160 -168 171 -155T187 -126Q197 -99 221 27T267 267T289 382V385H242Q195 385 192 387Q188 390 188 397L195 425Q197 430 203 430T250 431Q298 431 298 432Q298 434 307 482T319 540Q356 705 465 705Q502 703 526 683T550 630Q550 594 529 578T487 561Q443 561 443 603Q443 622 454 636T478 657L487 662Q471 668 457 668Q445 668 434 658T419 630Q412 601 403 552T387 469T380 433Q380 431 435 431Q480 431 487 430T498 424Q499 420 496 407T491 391Q489 386 482 386T428 385H372L349 263Q301 15 282 -47Q255 -132 212 -173Q175 -205 139 -205Q107 -205 81 -186T55 -132Q55 -95 76 -78T118 -61Q162 -61 162 -103Q162 -122 151 -136T127 -157L118 -162Z"></path><path id="MJX-17-TEX-N-3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path><path id="MJX-17-TEX-I-70" d="M23 287Q24 290 25 295T30 317T40 348T55 381T75 411T101 433T134 442Q209 442 230 378L240 387Q302 442 358 442Q423 442 460 395T497 281Q497 173 421 82T249 -10Q227 -10 210 -4Q199 1 187 11T168 28L161 36Q160 35 139 -51T118 -138Q118 -144 126 -145T163 -148H188Q194 -155 194 -157T191 -175Q188 -187 185 -190T172 -194Q170 -194 161 -194T127 -193T65 -192Q-5 -192 -24 -194H-32Q-39 -187 -39 -183Q-37 -156 -26 -148H-6Q28 -147 33 -136Q36 -130 94 103T155 350Q156 355 156 364Q156 405 131 405Q109 405 94 377T71 316T59 280Q57 278 43 278H29Q23 284 23 287ZM178 102Q200 26 252 26Q282 26 310 49T356 107Q374 141 392 215T411 325V331Q411 405 350 405Q339 405 328 402T306 393T286 380T269 365T254 350T243 336T235 326L232 322Q232 321 229 308T218 264T204 212Q178 106 178 102Z"></path><path id="MJX-17-TEX-N-2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path><path id="MJX-17-TEX-I-73" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="math"><g data-mml-node="mfrac"><g data-mml-node="mn" transform="translate(245, 676)"><use xlink:href="#MJX-17-TEX-N-31"></use></g><g data-mml-node="mi" transform="translate(220, -686)"><use xlink:href="#MJX-17-TEX-I-66"></use></g><rect width="750" height="60" x="120" y="220"></rect></g><g data-mml-node="mo" transform="translate(1267.8, 0)"><use xlink:href="#MJX-17-TEX-N-3D"></use></g><g data-mml-node="mfrac" transform="translate(2323.6, 0)"><g data-mml-node="mn" transform="translate(221.5, 676)"><use xlink:href="#MJX-17-TEX-N-31"></use></g><g data-mml-node="mi" transform="translate(220, -686)"><use xlink:href="#MJX-17-TEX-I-70"></use></g><rect width="703" height="60" x="120" y="220"></rect></g><g data-mml-node="mo" transform="translate(3488.8, 0)"><use xlink:href="#MJX-17-TEX-N-2B"></use></g><g data-mml-node="mfrac" transform="translate(4489, 0)"><g data-mml-node="mn" transform="translate(220, 676)"><use xlink:href="#MJX-17-TEX-N-31"></use></g><g data-mml-node="mi" transform="translate(235.5, -686)"><use xlink:href="#MJX-17-TEX-I-73"></use></g><rect width="700" height="60" x="120" y="220"></rect></g></g></g></svg>
     </div>
-    <svg id="illus" class="svg" width="1000" height="950"></svg>
-    <canvas id="render" width="1000" height="950"></canvas>
+    <!-- TODO: Organize these sliders into nicer columns with flex -->
+    <div style="min-height: calc(100vh - 3px); margin: 0; padding: 0; display: flex; flex-direction: column; align-items: auto;">
+      <div class="sliderContainer" style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+        <div>
+          <a>Ray Count: </a>
+          <input type="range" min="1" max="100" value="5" step="1" class="slider" id="rayCount">
+        </div>
+        <div>
+          <a>Ray Grouping: </a>
+          <input type="range" min="0" max="1" value="0" step="0.001" class="slider" id="rayGrouping">
+        </div>
+        <div>
+          <a>Ray Sensor Distance: </a>
+          <input type="range" min="0" max="1" value="1" step="0.001" class="slider" id="raySensorDistance">
+        </div>
+        <div>
+          <a>Ray Distance: </a>
+          <input type="range" min="0" max="2" value="1" step="0.001" class="slider" id="rayDistance">
+        </div>
+        <div>
+          <a>Ray Angle: </a>
+          <input type="range" min="-2" max="2" value="0" step="0.001" class="slider" id="rayAngle">
+        </div>
+        <div></div>
+        <div>
+          <a>Deviation: </a>
+          <input type="range" min="0" max="1" value="1" step="0.001" class="slider" id="deviation">
+        </div>
+        <div>
+          <a>Correction: </a>
+          <input type="range" min="0" max="1" value="1" step="0.001" class="slider" id="correction">
+        </div>
+        <div>
+          <a>F/stop: </a>
+          <input type="range" min="0.01" max="10" value="5" step="0.001" class="slider" id="n">
+        </div>
+        <div></div>
+        <div id="constraintChooser">
+          <a>Dependent Param: </a>
+          <input type="radio" id="sRadio" name="constraintChooser" value="s" checked>
+          <label for="sRadio">Sensor Distance</label>
+          <input type="radio" id="fRadio" name="constraintChooser" value="f">
+          <label for="fRadio">Focal Length</label>
+          <input type="radio" id="pRadio" name="constraintChooser" value="p">
+          <label for="pRadio">Focal Plane Distance</label>
+        </div>
+        <div></div>
+        <div>
+          <a>Sensor Distance: </a>
+          <input type="range" min="1.01" max="5" value="2" step="0.001" class="slider" id="s">
+        </div>
+        <div>
+          <a>Focal Length: </a>
+          <input type="range" min="0.01" max="2" value="1" step="0.001" class="slider" id="f">
+        </div>
+        <div>
+          <a>Focal Plane Distance: </a>
+          <input type="range" min="1.01" max="5" value="3" step="0.001" class="slider" id="p">
+        </div>
+        <div>
+          <a>Shift X: </a>
+          <input type="range" min="-10" max="10" value="0" step="0.001" class="slider" id="shiftX">
+        </div>
+        <div>
+          <a>Shift Y: </a>
+          <input type="range" min="-10" max="10" value="0" step="0.001" class="slider" id="shiftY">
+        </div>
+        <div>
+          <a>Tilt X: </a>
+          <input type="range" min="-1" max="1" value="0" step="0.001" class="slider" id="tiltX">
+        </div>
+        <div>
+          <a>Tilt Y: </a>
+          <input type="range" min="-1" max="1" value="0" step="0.001" class="slider" id="tiltY">
+        </div>
+        <div>
+          <a>Sensor Size: </a>
+          <input type="range" min="0.1" max="5" value="1.8" step="0.001" class="slider" id="sensorSize">
+        </div>
+        <div>
+          <a>Element Scale: </a>
+          <input type="range" min="0" max="1" value="1" step="0.001" class="slider" id="elementScale">
+        </div>
+        <div>
+          <a>Diagram Fade: </a>
+          <input type="range" min="0" max="255" value="255" step="1" class="slider" id="diagramFade">
+        </div>
+        <div>
+          <a>Gauss Fade: </a>
+          <input type="range" min="0" max="255" value="255" step="1" class="slider" id="gaussFade">
+        </div>
+      </div>
+      <!-- TODO: Fix size responsive size reduction for canvas. -->
+      <div style="display: flex; flex-direction: row; flex: 1 1 0;">
+        <svg id="illus" class="svg" style="flex: 1 1 0;"></svg>
+        <canvas id="render" style="flex: 1 1 0; width: 0;"></canvas>
+      </div>
+    </div>
     <script id="helpers">
       function padLeadingZeros(num, size) {
           var s = num+"";
@@ -566,6 +608,9 @@
         gaussFade = padLeadingZeros(Number(this.value).toString(16),2);
         draw();
       }
+      window.onresize = function reportWindowSize() {
+        draw();
+      }
     </script>
     <script id="renderShaders">
       vs = `#version 300 es
@@ -897,7 +942,7 @@ vec3 shade(
 }
 
 void mainImage(in vec2 fragCoord) {
-  const float batch = 32.0;
+  const float batch = 1.0;
   vec3 shaded = vec3(0.0);
   for(float i = 0.; i < batch; i++) {
     vec2 jittered = fragCoord + rng(vec3(fragCoord, iTime * i)).xy;
